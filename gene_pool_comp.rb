@@ -20,7 +20,7 @@ end
 
 def get_winner
 	winner = valid_users.sample
-	if verify_winner(winner['id'])
+	if verify_winner(winner)
 		details = @graph.get_object(winner['id'])
 		{ name: details['name'], link: details['link'] }
 	else
@@ -29,8 +29,8 @@ def get_winner
 end
 
 def verify_winner(winner)
-	puts 'Verifying winner'
-	return true if @graph.get_connections(winner, 'likes')
+	puts "Verifying #{winner['name']}"
+	return true if @graph.get_connections(winner['id'], 'likes').length > 0
 	false
 end
 
