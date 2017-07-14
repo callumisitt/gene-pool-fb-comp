@@ -21,7 +21,7 @@ end
 def get_winner
 	winner = valid_users.sample
 	if verify_winner(winner)
-		details = @graph.get_object(winner['id'])
+		details = @graph.get_object("#{winner['id']}?fields=name,link")
 		{ name: details['name'], link: details['link'] }
 	else
 		get_winner
@@ -56,4 +56,4 @@ puts 'Getting post comments'
 
 winner = get_winner
 puts "\nOut of #{valid_users.length} valid entries, the winner is:-"
-puts "#{winner[:name]} (#{winner[:link]})"
+puts "#{winner[:name]} ( #{winner[:link]} )"
